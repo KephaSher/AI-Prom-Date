@@ -20,11 +20,10 @@ The setup comes to you in a series of steps
 2. Clone this repository and install `requirements.txt` with ```pip install -r requirements.txt```.
 3. Install [VTube Studios](https://denchisoft.com/) (You'll need a Steam account for this).
 4. Get your OpenAI API setup by going [here](https://platform.openai.com/api-keys). You'll need to create an account for OpenAI, and then create your key.
-5. Get Google Cloud's Text to Speech JSON Credentials.
-6. Get Loopback for audio piping (any audio piping software works, but I'm using Loopback because it's the easiest). You do have to pay a hefty price for it though.
-7. Get OBS to stream VTube Studios and add captions
+5. Get Google Cloud's Text to Speech JSON Credentials. Will expand below.
+6. Get Loopback for audio piping (any audio piping software works, but I'm using Loopback because it's the easiest). You do have to pay a hefty price for it though. Will expand below.
+7. Get OBS to stream VTube Studios and add captions. Depending on your preference, or if you want to project OBS to a monitor, OBS has the power to tweak the displays. Will expand below.
 
 ## Initializing Google Cloud Text to Speech
-9.    First create an account and then make a new project [here](https://console.cloud.google.com/welcome/new?hl=en). 
-10. 
-11. 
+1. First create an account and then make a new project [here](https://console.cloud.google.com/welcome/new?hl=en). 
+
