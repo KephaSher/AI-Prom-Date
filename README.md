@@ -39,7 +39,7 @@ To install, follow the steps:
 4. Go to IAM & Admin and click on Service Accounts, you should then be able to download your API JSON file here.
 <img width="1275" alt="Screenshot 2024-05-09 at 12 38 01 PM" src="https://github.com/KephaSher/AI-Prom-Date/assets/87000244/74d050a2-bae3-4f33-b745-255a14f67ff7">
 <img width="1275" alt="Screenshot 2024-05-09 at 12 38 15 PM" src="https://github.com/KephaSher/AI-Prom-Date/assets/87000244/9814f253-670a-4394-9bb7-8b6b86ceb0f1">
-5. After clicking on your project link, click on the KEY tab and get your API.
+5. After clicking on your project link, click on the KEY tab and get your API. 
 6. Replace the `REPLACE_THIS.json` file in this repo with the new json credentials you've just downloaded.
 
 ## Setting up Loopback
