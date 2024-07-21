@@ -54,8 +54,41 @@ To install, follow the steps:
 
 ## Get OBS to stream VTube Studios and add captions
 1. Download OBS
-2. Under Sources, click the add button to create Screen Capture. In the Properties section of this screen capture, choose Window Capture and select VTube Studios (which needs to be open of course)
-3. To add captions, click the add buton this time choosing Text (Freetype 2). For its properties, select "From file" for the Text Input Mode. The text file to choose from is the `output.txt` file in this repo.
-4. Right click on the Text object under sources, and click "Transform > Edit Transform". For Bounding Box Type, select Scale to inner bounds. You can also adjust the size of the caption box here.
+2. Under Sources, click the add button to create Screen Capture. In the Properties section of this screen capture, choose Window Capture and select VTube Studios (which needs to be open of course) <img width="1164" alt="Screenshot 2024-07-21 at 1 14 13 PM" src="https://github.com/user-attachments/assets/d7bba578-9c26-4d59-9801-f4ed8a6a0ac1">
+
+3. To add captions, click the add buton this time choosing Text (Freetype 2). For its properties, select "From file" for the Text Input Mode. The text file to choose from is the `output.txt` file in this repo. <img width="1164" alt="Screenshot 2024-07-21 at 1 14 41 PM" src="https://github.com/user-attachments/assets/5a5b477f-754a-4275-a68e-91fc02b623ac">
+
+4. Right click on the Text object under sources, and click "Transform > Edit Transform". For Bounding Box Type, select Scale to inner bounds. You can also adjust the size of the caption box here. <img width="1164" alt="Screenshot 2024-07-21 at 1 15 52 PM" src="https://github.com/user-attachments/assets/7d729f2a-6fa2-4422-b28c-25650e45c222"> <img width="1164" alt="Screenshot 2024-07-21 at 1 16 00 PM" src="https://github.com/user-attachments/assets/33654a7c-a565-4760-8200-39bafaef5461">
+
+
 5. Move the captions to a pleasant position.
-6. To project to a monitor (or to simply full screen), right click Scene under the "Scene section", and click "Full Screen Projector (Scene), and your monitors should pop up there.
+6. To project to a monitor (or to simply full screen), right click Scene under the "Scene section", and click "Full Screen Projector (Scene), and your monitors should pop up there. <img width="1164" alt="Screenshot 2024-07-21 at 1 16 07 PM" src="https://github.com/user-attachments/assets/b8f34564-8d41-44cc-bf52-bea138c15038">
+
+## Instructions for running the program
+
+1. Ensure you are in the correct virtual environment.
+2. Run `setup.py`.
+
+There are 2 additional flags you can apply. They both default to False.
+
+   ```python3 setup.py --enable_video=True```
+   
+runs the program with video enabled, so she can see you and recognize your emotions. Her perceived emotion will be used to augment her speech. Make sure you    have a functional webcam. Warning: this option is very GPU intensive.
+
+```python3 setup.py --enable_vtube=True```
+
+runs the program with VTube Studios actions enabled. This means that she'll be able to perform certain actions, like bobbing her head, when she feels a certain emotion. If you select this option, there will be a pop-up on your VTube Studios application. Just click OK and you should see updates in the command line, meaning it's properly running.
+
+3. To quit, say `Quit`. Once she picks up everything should quit. If not, you can always kill the processes with `ps aux | grep [...]` with whatever program you just ran.
+
+## Debugging info and other important information
+
+I have color coded a lot of logging/update information for ease of tracking the program while running. These are:
+- Orange: messages from `main.py`. You'll be able to see what she picked up from your speech. <img width="646" alt="Screenshot 2024-07-21 at 1 44 49 PM" src="https://github.com/user-attachments/assets/87fff53b-5e9d-42bf-8ee4-1e306c434a16"> Note that **the first message is always meant as a test message and discarded**
+- Green: Update ticks from `vtube.py`. Due to my incompetence, I have no idea how to maintain a websocket connection for more than half a minute without sending out requests. That's why I send a message, through a websocket, to Vtube Studios every 2 seconds (just to be safe). Aside from this annoying logging information, you should also get a response whenever she decides to perform an emotion: `[INFO] Received hotkey request`.
+- Blue: Updates the video feed. There will be updates on her saving her perceived emotion to a file: `[INFO] Wrote emotion [...] to 'emotion.txt' at time [...]'`
+- Purple: Updates on the status of synthesized speech and captions. The captions are updated live as she speaks.
+- Cyan: Only for the setup file. Tells you if everything's been initialized.
+- Red: All errors are coded red.
+
+An important thing to note is how the audio reception works. Once you start speaking, the program decides your sentence is finished if there's been a period of silence for more than 2 seconds. In other words, you can't pause for long, otherwise the things you said after that pause will be neglected. There's actually a flag that controls this in `main.py` called `--phrase_timeout` and `--record_timeout` (you need to change both), which defaults to 2. You can change this in the code at line 99 of `main.py`. 
