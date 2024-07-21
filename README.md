@@ -12,7 +12,17 @@ This program only supports OS X, but Windows probably works the same with some m
 
 The tutorial video will come soon...
 
-To install, follow the steps:
+## Features
+1. Conversations. You can talk to her, and she talks back using AI.
+2. She know how you feels. You can see your emotions and adjust her speech correspondingly. You can also see your emotion reflected on the camera window.
+3. She'll show you how she feels. She can express emotions based off of your speech and your emotions.
+4. When she speaks, captions are generated live.
+5. Her mouth moves as she speaks. Everything about her is very natural.
+6. You can use a microphone or builtin audio. She ignores the audio inputs during her speech, so the program never loops.
+7. You can customize her system prompt by editting `prompt1.txt`.
+
+## Installation
+Follow the steps outlined below.
 
 ## Initialize python virtual environment
 1. Open terminal, find a suitable directory (could be just the repo directory) and type `python -m venv NAME_HERE`. Activate it by typing `source NAME_HERE/bin/activate`.
@@ -84,7 +94,11 @@ runs the program with VTube Studios actions enabled. This means that she'll be a
 ## Debugging info and other important information
 
 I have color coded a lot of logging/update information for ease of tracking the program while running. These are:
-- Orange: messages from `main.py`. You'll be able to see what she picked up from your speech. <img width="646" alt="Screenshot 2024-07-21 at 1 44 49 PM" src="https://github.com/user-attachments/assets/87fff53b-5e9d-42bf-8ee4-1e306c434a16"> Note that **the first message is always meant as a test message and discarded**
+- Orange: messages from `main.py`. You'll be able to see what she picked up from your speech. <img width="646" alt="Screenshot 2024-07-21 at 1 44 49 PM" src="https://github.com/user-attachments/assets/87fff53b-5e9d-42bf-8ee4-1e306c434a16">
+Note that **the first message is always meant as a test message and discarded**
+
+**When she speaks, she ignores all utterances**
+
 - Green: Update ticks from `vtube.py`. Due to my incompetence, I have no idea how to maintain a websocket connection for more than half a minute without sending out requests. That's why I send a message, through a websocket, to Vtube Studios every 2 seconds (just to be safe). Aside from this annoying logging information, you should also get a response whenever she decides to perform an emotion: `[INFO] Received hotkey request`.
 - Blue: Updates the video feed. There will be updates on her saving her perceived emotion to a file: `[INFO] Wrote emotion [...] to 'emotion.txt' at time [...]'`
 - Purple: Updates on the status of synthesized speech and captions. The captions are updated live as she speaks.
@@ -92,3 +106,7 @@ I have color coded a lot of logging/update information for ease of tracking the 
 - Red: All errors are coded red.
 
 An important thing to note is how the audio reception works. Once you start speaking, the program decides your sentence is finished if there's been a period of silence for more than 2 seconds. In other words, you can't pause for long, otherwise the things you said after that pause will be neglected. There's actually a flag that controls this in `main.py` called `--phrase_timeout` and `--record_timeout` (you need to change both), which defaults to 2. You can change this in the code at line 99 of `main.py`. 
+
+## Hardware setup
+The hardware setup I employed when taking her to prom was brutally simple. She was composed of two boxes stacked on top of each other, placed above a cart. Wires goes through a hole punctured on both boxes. In the box below was an anker solix 521 power bank, my laptop (M3 Pro) charged by the power bank, and my [wireless microphone](https://www.amazon.com/Mini-Mic-Pro-Professional-Microphone/dp/B0CMJTSVRW/ref=sr_1_37?crid=3SBESPUQCSJZ5&dib=eyJ2IjoiMSJ9.3b4nK-WQoI1Wh_5drIz-hXJrm5X5B4x8hlF8Tem00JNUAeuFdoJ2hWNPO0wio8fnS44J5UWQ_Sv-wvdmFOJ0kRhGUP8S0VM3aKpCGYD8YH-NbxMRmuic_Meu2foTYjWEd5VgZs2I2yWwIw6FG0mw1JwnSwodX3_AaDyl3h0-nsnF4t_pevNzQ8rlgZCO4dX_o66xx5PViBGef4ZqEdTKY-ACJS5mCEp49NyDXRfn2wselvT9_4nwGlCYGOx2VVvb6bFueNXc2wK_fZPQcIPVi8Pv2NEgdyCqAR6mlwv9Soc.T7Iv-44m5YGddjTDGA2pYssX-nuGCJoDzdj9F2COSnY&dib_tag=se&keywords=wireless+microphone+for+iphone&qid=1721597990&sprefix=wireless+microphone+for+iphone+%2Caps%2C142&sr=8-37) receiver plugged into my laptop. My webcam was also plugged in my laptop. 
+In the second box, I _literally_ cut a hole through the side of the box, and duck taped my monitor to the side of it. The power and HDMI cord goes through the opening and into the first box, connecting with the power bank and my laptop. The webcame is placed on top of both boxes, with ots wires running all the way down to my laptop.
